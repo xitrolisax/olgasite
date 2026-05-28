@@ -1,6 +1,7 @@
 const TOKEN = process.env.AIRTABLE_API_KEY;
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const TABLE = process.env.AIRTABLE_TABLE_NAME ?? 'Syntria CRM';
+const IS_PROD = process.env.NODE_ENV === 'production';
 
 type ClientInput = {
   name: string;
@@ -41,11 +42,13 @@ export async function createAirtableClient(input: ClientInput): Promise<void> {
     TABLE
   )}`;
 
-  console.log('[airtable] Inserting record:', {
-    table: TABLE,
-    source: input.source,
-    email: input.email,
-  });
+  if (!IS_PROD) {
+    console.log('[airtable] Inserting record:', {
+      table: TABLE,
+      source: input.source,
+      email: input.email,
+    });
+  }
 
   try {
     const res = await fetch(url, {
@@ -63,12 +66,22 @@ export async function createAirtableClient(input: ClientInput): Promise<void> {
     const responseText = await res.text().catch(() => '');
 
     if (!res.ok) {
-      console.error('[airtable] Insert failed:', res.status, responseText);
+      // Loudly log full lead context so it can be reconstructed manually
+      // if Airtable rejected the insert (wrong field name, bad token, etc).
+      console.error(
+        '[airtable] Insert failed:',
+        res.status,
+        responseText,
+        '— lost lead:',
+        JSON.stringify(input)
+      );
       return;
     }
 
-    console.log('[airtable] Insert OK:', responseText.slice(0, 200));
+    if (!IS_PROD) {
+      console.log('[airtable] Insert OK:', responseText.slice(0, 200));
+    }
   } catch (e) {
-    console.error('[airtable] Insert error:', e);
+    console.error('[airtable] Insert error:', e, '— lost lead:', JSON.stringify(input));
   }
 }

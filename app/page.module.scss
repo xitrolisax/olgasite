@@ -110,13 +110,15 @@ $gap: 80px;
 .hero {
   position: relative;
   background-color: #0a0907;
-  background-image: url('/images/portrait-hero.jpg');
-  background-size: cover;
-  background-position: right center;
-  background-repeat: no-repeat;
   color: #ece8df;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: right center;
+  z-index: 0;
 }
 
 .heroInner {
@@ -125,7 +127,7 @@ $gap: 80px;
   max-width: $container;
   margin: 0 auto;
   padding: 160px 56px 110px;
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
 }
@@ -909,6 +911,15 @@ $gap: 80px;
   background: rgba(176, 60, 60, 0.08);
   border: 1px solid rgba(176, 60, 60, 0.3);
   border-radius: 2px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .contactHead {

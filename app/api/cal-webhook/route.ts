@@ -3,9 +3,16 @@ import crypto from 'crypto';
 import { createAirtableClient } from '@/lib/airtable';
 
 const SECRET = process.env.CAL_WEBHOOK_SECRET;
+const IS_PROD = process.env.NODE_ENV === 'production';
 
 function verifySignature(rawBody: string, signatureHeader: string | null): boolean {
-  if (!SECRET) return true;
+  if (!SECRET) {
+    if (IS_PROD) {
+      console.error('[cal-webhook] CAL_WEBHOOK_SECRET not set in production — refusing');
+      return false;
+    }
+    return true; // dev only
+  }
   if (!signatureHeader) return false;
   try {
     const expected = crypto
@@ -49,8 +56,10 @@ export async function POST(req: Request) {
   }
 
   const triggerEvent = String(body.triggerEvent ?? '');
-  console.log('[cal-webhook] Event:', triggerEvent);
-  console.log('[cal-webhook] Raw payload:', rawBody.slice(0, 2500));
+  if (!IS_PROD) {
+    console.log('[cal-webhook] Event:', triggerEvent);
+    console.log('[cal-webhook] Raw payload:', rawBody.slice(0, 2500));
+  }
 
   if (triggerEvent !== 'BOOKING_CREATED') {
     return NextResponse.json({ ok: true, ignored: triggerEvent });
@@ -82,7 +91,9 @@ export async function POST(req: Request) {
     safe(data.description) ||
     '';
 
-  console.log('[cal-webhook] Extracted:', { name, email, notesLen: notes.length });
+  if (!IS_PROD) {
+    console.log('[cal-webhook] Extracted:', { name, email, notesLen: notes.length });
+  }
 
   if (!email && !name) {
     console.warn('[cal-webhook] No name or email in payload — skipping');

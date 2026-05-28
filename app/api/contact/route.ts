@@ -3,11 +3,12 @@ import { Resend } from 'resend';
 import { createAirtableClient } from '@/lib/airtable';
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'olga@syntria.io';
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? 'onboarding@resend.dev';
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL;
 const CC_EMAILS = (process.env.CONTACT_CC_EMAIL ?? '')
   .split(',')
   .map((s) => s.trim())
   .filter(Boolean);
+const IS_PROD = process.env.NODE_ENV === 'production';
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,11 +20,25 @@ export async function POST(request: Request) {
     );
   }
 
+  if (!FROM_EMAIL && IS_PROD) {
+    console.error('[contact] CONTACT_FROM_EMAIL is not set in production');
+    return NextResponse.json(
+      { error: 'Email service is not configured.' },
+      { status: 500 }
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
+  }
+
+  // Honeypot — bots auto-fill all fields including hidden ones. If `website`
+  // has any value, silently accept and drop (don't tell the bot it failed).
+  if (String(body.website ?? '').trim() !== '') {
+    return NextResponse.json({ ok: true });
   }
 
   const name = String(body.name ?? '').trim();
@@ -59,7 +74,7 @@ export async function POST(request: Request) {
 
   try {
     const { error } = await resend.emails.send({
-      from: `Olga Fredrick Site <${FROM_EMAIL}>`,
+      from: `Olga Fredrick Site <${FROM_EMAIL ?? 'onboarding@resend.dev'}>`,
       to: [TO_EMAIL],
       cc: CC_EMAILS.length > 0 ? CC_EMAILS : undefined,
       replyTo: email,

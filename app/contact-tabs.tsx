@@ -87,9 +87,13 @@ function CalInline() {
   }, []);
 
   return (
-    <div className={styles.calWrap}>
+    <div
+      className={styles.calWrap}
+      role="tabpanel"
+      id="contact-panel-call"
+      aria-labelledby="contact-tab-call"
+    >
       <div id="cal-inline" className={styles.calInline} />
-     
     </div>
   );
 }
@@ -115,6 +119,7 @@ function MessageForm() {
       company: data.get('company'),
       projectType: data.get('projectType'),
       message: data.get('message'),
+      website: data.get('website'), // honeypot — must be empty
     };
 
     setStatus({ kind: 'submitting' });
@@ -170,7 +175,23 @@ function MessageForm() {
   const submitting = status.kind === 'submitting';
 
   return (
-    <form className={styles.form} role="tabpanel" onSubmit={handleSubmit} noValidate>
+    <form
+      className={styles.form}
+      role="tabpanel"
+      id="contact-panel-message"
+      aria-labelledby="contact-tab-message"
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      {/* Honeypot — hidden from humans, irresistible to bots */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className={styles.honeypot}
+      />
       <div className={styles.formRow}>
         <input
           type="text"
@@ -251,11 +272,14 @@ export function ContactTabs() {
 
   return (
     <>
-      <div className={styles.contactTabs} role="tablist">
+      <div className={styles.contactTabs} role="tablist" aria-label="Contact options">
         <button
           type="button"
           role="tab"
+          id="contact-tab-call"
           aria-selected={mode === 'call'}
+          aria-controls="contact-panel-call"
+          tabIndex={mode === 'call' ? 0 : -1}
           className={`${styles.contactTab} ${mode === 'call' ? styles.contactTabActive : ''}`}
           onClick={() => setMode('call')}
         >
@@ -264,7 +288,10 @@ export function ContactTabs() {
         <button
           type="button"
           role="tab"
+          id="contact-tab-message"
           aria-selected={mode === 'message'}
+          aria-controls="contact-panel-message"
+          tabIndex={mode === 'message' ? 0 : -1}
           className={`${styles.contactTab} ${mode === 'message' ? styles.contactTabActive : ''}`}
           onClick={() => setMode('message')}
         >

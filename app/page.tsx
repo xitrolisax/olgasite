@@ -5,23 +5,15 @@ import { ImpactCalculator } from './impact-calculator';
 import {
   IconArrow,
   IconBag,
-  IconBrackets,
   IconCheck,
-  IconCube,
   IconDot,
   IconGear,
-  IconHeart,
   IconLayers,
-  IconLinkedIn,
-  IconInstagram,
   IconLock,
   IconMail,
   IconMonitor,
-  IconPencil,
   IconPhone,
-  IconShield,
   IconSpark,
-  IconSpeech,
 } from './icons';
 
 const services = [
@@ -162,7 +154,16 @@ export default function Page() {
       </header>
 
       {/* HERO */}
-      <section className={styles.hero} id="top" role="img" aria-label="Olga Fredrick portrait">
+      <section className={styles.hero} id="top">
+        <Image
+          src="/images/portrait-hero.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroImage}
+          aria-hidden="true"
+        />
         <div className={styles.heroFade} aria-hidden="true" />
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
@@ -322,18 +323,14 @@ export default function Page() {
         </div>
       </section>
 
-      {/* TESTIMONIAL */}
+      {/* VALUE */}
       <section className={styles.testimonial}>
         <div className={styles.testimonialInner}>
           <div className={styles.testimonialHead}>
-            <p className={styles.kickerDark}>WHAT CLIENTS SAY</p>
-            <blockquote className={styles.quote}>
-              <em>
-                “Olga is not just a developer. She&rsquo;s a true partner who cares
-                about the result as much as I do.”
-              </em>
-            </blockquote>
-            <p className={styles.quoteAuthor}>— MARK T., FOUNDER</p>
+            <p className={styles.kickerDark}>WHAT YOU GET</p>
+            <h2 className={styles.h2}>
+              Outcomes that move the business.
+            </h2>
           </div>
 
           <ul className={styles.valueCards}>
@@ -475,8 +472,6 @@ export default function Page() {
               Based in the United States<span className={styles.brandDot}>•</span>Working Worldwide
             </p>
             <div className={styles.socials}>
-             
-            
               <a aria-label="Email" href="mailto:olga@syntria.io">
                 <IconMail />
               </a>
