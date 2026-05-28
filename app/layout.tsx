@@ -17,9 +17,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: 'Olga Fredrick — Software Engineer',
+  title: 'Olga Fredrick — Business Growth Systems · Web, Mobile, CRM & Automation',
   description:
-    'I design and build websites and mobile applications for brands that care about clarity, aesthetics, and long-term growth.',
+    'Clean, high-converting websites and native mobile apps paired with smart CRM systems and automations — built to help businesses generate leads, stay organized, and scale faster.',
 };
 
 export default function RootLayout({

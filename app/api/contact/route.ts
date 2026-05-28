@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createAirtableClient } from '@/lib/airtable';
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'olga@syntria.io';
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? 'onboarding@resend.dev';
@@ -72,6 +73,23 @@ export async function POST(request: Request) {
         { error: 'Could not send your message. Please try again.' },
         { status: 502 }
       );
+    }
+
+    // Push lead into Airtable CRM. Await so the API route doesn't return
+    // before the request completes (dangling promises get cancelled in
+    // serverless runtimes). Don't fail the user-facing response if Airtable
+    // is down — the email already sent successfully.
+    try {
+      await createAirtableClient({
+        name,
+        email,
+        company: company || undefined,
+        projectType: projectType || undefined,
+        message,
+        source: 'Contact form',
+      });
+    } catch (e) {
+      console.error('[contact] Airtable error:', e);
     }
 
     return NextResponse.json({ ok: true });

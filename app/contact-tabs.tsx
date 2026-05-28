@@ -89,17 +89,7 @@ function CalInline() {
   return (
     <div className={styles.calWrap}>
       <div id="cal-inline" className={styles.calInline} />
-      <p className={styles.calFallback}>
-        Trouble loading the scheduler?{' '}
-        <a
-          href={`https://cal.com/${CAL_LINK}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open in a new tab
-        </a>
-        .
-      </p>
+     
     </div>
   );
 }

@@ -274,14 +274,13 @@ $gap: 80px;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 36px 60px;
+  gap: 48px 60px;
 }
 
 .serviceCell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 18px;
-  padding: 12px 0;
 }
 
 .serviceIcon {
@@ -293,13 +292,28 @@ $gap: 80px;
   display: grid;
   place-items: center;
   color: #2c2a25;
+  margin-top: 2px;
 }
 
 .serviceText {
+  flex: 1;
+  min-width: 0;
+}
+
+.serviceTitle {
+  font-family: var(--font-sans), sans-serif;
   font-size: 15px;
-  line-height: 1.5;
-  color: #2c2a25;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: #121110;
+  letter-spacing: 0.005em;
+}
+
+.serviceBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b685e;
 }
 
 .nda {
@@ -319,6 +333,57 @@ $gap: 80px;
 
   p { margin: 0; }
   svg { flex-shrink: 0; color: #57544c; }
+}
+
+/* ---------- INDUSTRIES ---------- */
+.industriesSection {
+  background: var(--c-cream);
+  padding: 110px 56px;
+  border-top: 1px solid #e2dccc;
+}
+
+.industriesInner {
+  max-width: $container;
+  margin: 0 auto;
+}
+
+.industriesHead {
+  text-align: center;
+  margin-bottom: 56px;
+
+  .h2 { @extend %h2; font-size: 40px; }
+}
+
+.industriesGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.industryCard {
+  padding: 32px 30px;
+  border: 1px solid #d8d2c4;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+
+  h3 {
+    font-family: var(--font-serif), Georgia, serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.15;
+    margin: 0 0 12px;
+    color: #121110;
+  }
+
+  p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #57544c;
+    margin: 0;
+  }
 }
 
 /* ---------- PROCESS INTRO ---------- */
@@ -384,8 +449,8 @@ $gap: 80px;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .step { padding-right: 8px; }
@@ -1127,6 +1192,7 @@ $gap: 80px;
   .heroInner { padding: 130px 40px 80px; }
   .services,
   .servicesGridSection,
+  .industriesSection,
   .process,
   .processTimeline,
   .style,
@@ -1138,6 +1204,7 @@ $gap: 80px;
   .footer { padding-left: 40px; padding-right: 40px; }
   .services { padding-top: 80px; padding-bottom: 50px; }
   .servicesGridSection { padding-bottom: 80px; }
+  .industriesSection { padding-top: 80px; padding-bottom: 80px; }
   .process { padding-top: 80px; padding-bottom: 50px; }
   .processTimeline { padding-bottom: 80px; }
   .style { padding-top: 80px; padding-bottom: 80px; }
@@ -1145,6 +1212,7 @@ $gap: 80px;
   .impact { padding-top: 60px; padding-bottom: 60px; }
   .faqSection { padding-top: 80px; padding-bottom: 80px; }
   .contactSection { padding-top: 80px; padding-bottom: 80px; }
+  .servicesGrid { grid-template-columns: repeat(2, 1fr); gap: 40px 40px; }
   .ctaBanner { padding-top: 70px; padding-bottom: 70px; }
   .styleInner { gap: 50px; }
   .stylePortrait { height: 480px; }
@@ -1204,6 +1272,7 @@ $gap: 80px;
 
   .services,
   .servicesGridSection,
+  .industriesSection,
   .process,
   .processTimeline,
   .style,
@@ -1213,6 +1282,12 @@ $gap: 80px;
   .faqSection,
   .contactSection,
   .footer { padding-left: 28px; padding-right: 28px; }
+  .industriesGrid { grid-template-columns: 1fr; gap: 18px; }
+  .industriesHead { margin-bottom: 36px; }
+  .industriesHead .h2 { font-size: 30px; }
+  .industryCard { padding: 26px 24px; }
+  .industryCard h3 { font-size: 22px; }
+  .servicesGrid { grid-template-columns: 1fr; gap: 32px; }
 
   .h2 { font-size: 34px; }
   .ctaTitle { font-size: 34px; }
@@ -1249,6 +1324,7 @@ $gap: 80px;
 
   .services,
   .servicesGridSection,
+  .industriesSection,
   .process,
   .processTimeline,
   .style,

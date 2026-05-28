@@ -25,42 +25,53 @@ import {
 } from './icons';
 
 const services = [
-  { icon: <IconMonitor />, title: 'Websites & Landing Pages'},
-  { icon: <IconPhone />, title: 'Mobile Applications iOS & Android' },
-  { icon: <IconCube />, title: 'Client Portals & Dashboards' },
-  { icon: <IconBag />, title: 'E-commerce & Shopify Solutions' },
-  { icon: <IconGear />, title: 'Internal Tools & Operational Systems' },
-  { icon: <IconLayers />, title: 'Product Strategy & Architecture' },
-  { icon: <IconPencil />, title: 'UX/UI Design & Prototyping' },
-  { icon: <IconBrackets />, title: 'Frontend Development & Integrations' },
-  { icon: <IconShield />, title: 'Performance, Security & Scalability' },
+  {
+    icon: <IconMonitor />,
+    title: 'High-Converting Websites',
+    body: 'Modern, mobile-friendly sites designed to build trust and turn visitors into customers.',
+  },
+  {
+    icon: <IconGear />,
+    title: 'CRM & Automation',
+    body: 'Organize leads, automate follow-ups, manage appointments — everything in one place.',
+  },
+  {
+    icon: <IconBag />,
+    title: 'E-Commerce & Online Stores',
+    body: 'Streamlined shopping experiences with automated backend and customer management.',
+  },
+  {
+    icon: <IconSpark />,
+    title: 'Marketing Systems',
+    body: 'SEO, email funnels, ads, and social workflows that bring in customers consistently.',
+  },
+  {
+    icon: <IconPhone />,
+    title: 'Mobile Applications',
+    body: 'Native iOS and Android apps for growing brands and product-led businesses.',
+  },
+  {
+    icon: <IconLayers />,
+    title: 'Internal Tools & Dashboards',
+    body: 'Custom operational systems that streamline how your team runs the business.',
+  },
 ];
 
 const processSteps = [
   {
     n: '01',
-    title: 'Discovery',
-    body: 'Goal clarification, audience, and project scope.',
+    title: 'Strategy',
+    body: 'I learn your business, goals, and customer flow — then map the system around them.',
   },
   {
     n: '02',
-    title: 'Strategy & Scope',
-    body: 'Plan creation, timeline, and transparent estimate.',
+    title: 'Build',
+    body: 'I design your site and integrate the tools your business actually needs — CRM, automation, e-commerce.',
   },
   {
     n: '03',
-    title: 'Design',
-    body: 'Clean, intentional design focused on usability and quality.',
-  },
-  {
-    n: '04',
-    title: 'Development',
-    body: 'High-quality code, integrations, and performance.',
-  },
-  {
-    n: '05',
-    title: 'Launch & Support',
-    body: 'Product launch and ongoing support.',
+    title: 'Launch & Grow',
+    body: 'I optimize your systems so your business can scale efficiently — and stay supported after go-live.',
   },
 ];
 
@@ -75,18 +86,37 @@ const principles = [
 const valueCards = [
   {
     icon: <IconSpark />,
-    title: 'Strategic Thinking',
-    body: 'I look at the big picture and help you make the right decisions.',
+    title: 'More Leads',
+    body: 'Turn visitors into real customers with optimized pages and clear calls to action.',
   },
   {
-    icon: <IconSpeech />,
-    title: 'Reliable Communication',
-    body: "You're always in the loop. I explain things clearly and simply.",
+    icon: <IconLayers />,
+    title: 'Better Organization',
+    body: 'Manage leads, clients, appointments, and communication through one streamlined CRM.',
   },
   {
-    icon: <IconHeart />,
-    title: 'Design Meets Function',
-    body: 'I combine aesthetics with performance and real-world usability.',
+    icon: <IconGear />,
+    title: 'Faster Growth',
+    body: 'Automate repetitive tasks and marketing so you can focus on running your business.',
+  },
+];
+
+const industries = [
+  {
+    title: 'Contractors & Trades',
+    body: 'Roofing, construction, HVAC, plumbing, remodeling, and home service businesses looking to generate more leads and streamline operations.',
+  },
+  {
+    title: 'Restaurants & Food',
+    body: 'Online ordering, reservations, promotions, loyalty programs, and customer engagement systems.',
+  },
+  {
+    title: 'Local Businesses',
+    body: 'Professional websites and marketing systems designed to help local companies stand out and grow.',
+  },
+  {
+    title: 'E-Commerce Brands',
+    body: 'Modern online stores with integrated automation, fulfilment, and customer management tools.',
   },
 ];
 
@@ -136,20 +166,20 @@ export default function Page() {
         <div className={styles.heroFade} aria-hidden="true" />
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>12 YEARS IN SOFTWARE ENGINEERING</p>
+            <p className={styles.kicker}>BUSINESS GROWTH SYSTEMS</p>
             <h1 className={styles.heroTitle}>
-              Digital products
+              Websites and mobile apps that
               <br />
-              designed to feel
-              <br />
-              <em>inevitable.</em>
+              help businesses
+      
+              <em> grow.</em>
             </h1>
             <p className={styles.heroLead}>
-              I design and build websites and mobile
+              Clean, high-converting websites and native mobile apps
               <br />
-              applications for brands that care about
+              paired with smart CRM systems and automations — built
               <br />
-              clarity, aesthetics, and long-term growth.
+              to generate leads, stay organized, and scale faster.
             </p>
             <div className={styles.heroCtas}>
               <a href="#contact" className={styles.btnPrimary}>
@@ -171,13 +201,12 @@ export default function Page() {
       {/* SERVICES */}
       <section className={styles.services} id="services">
         <div className={styles.servicesIntro}>
-          <p className={styles.kickerDark}>SELECTED EXPERIENCE</p>
-          <h2 className={styles.h2}>What I build.</h2>
+          <p className={styles.kickerDark}>WHAT I BUILD</p>
+          <h2 className={styles.h2}>More than just a website.</h2>
           <p className={styles.lead}>
-            I work on custom digital products across industries. <br/> From elegant
-            websites to complex internal tools.
+            Your website or app should do more than look good — it should help run your business.
+            I build complete systems: websites, native mobile apps, CRM, automation, marketing, and e-commerce — all working together.
           </p>
-         
         </div>
       </section>
 
@@ -188,10 +217,10 @@ export default function Page() {
             {services.map((s, i) => (
               <li key={i} className={styles.serviceCell}>
                 <span className={styles.serviceIcon}>{s.icon}</span>
-                <span className={styles.serviceText}>
-                  {s.title}
-                 
-                </span>
+                <div className={styles.serviceText}>
+                  <h3 className={styles.serviceTitle}>{s.title}</h3>
+                  <p className={styles.serviceBody}>{s.body}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -206,18 +235,35 @@ export default function Page() {
         </div>
       </section>
 
+      {/* INDUSTRIES */}
+      <section className={styles.industriesSection} id="industries">
+        <div className={styles.industriesInner}>
+          <div className={styles.industriesHead}>
+            <p className={styles.kickerDark}>INDUSTRIES I WORK WITH</p>
+            <h2 className={styles.h2}>Built for businesses that need to grow.</h2>
+          </div>
+          <ul className={styles.industriesGrid}>
+            {industries.map((ind) => (
+              <li key={ind.title} className={styles.industryCard}>
+                <h3>{ind.title}</h3>
+                <p>{ind.body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       {/* PROCESS INTRO */}
       <section className={styles.process} id="experience">
         <div className={styles.processIntro}>
-          <p className={styles.kickerDark}>MY PROCESS</p>
+          <p className={styles.kickerDark}>HOW IT WORKS</p>
           <h2 className={styles.h2}>
-            A clear process for a smooth experience.
+            From strategy to launch — a clear path to growth.
           </h2>
           <p className={styles.lead}>
-            I believe great results come from structure, communication, and
-            attention to detail.
+            Three focused phases. No mystery, no surprises — just a system
+            built around your business.
           </p>
-        
         </div>
       </section>
 
@@ -386,7 +432,7 @@ export default function Page() {
         <div className={styles.contactInner}>
           <div className={styles.contactHead}>
             <p className={styles.kickerDark}>GET IN TOUCH</p>
-            <h2 className={styles.h2}>Let's discuss your project.</h2>
+            <h2 className={styles.h2}>Let&rsquo;s build your growth system.</h2>
             <p className={styles.lead}>
               Book a 30-min call or send me a message.<br/>I'll get back
               to you within 1–2 business days.
@@ -400,19 +446,16 @@ export default function Page() {
       <section className={styles.ctaBanner}>
         <div className={styles.ctaInner}>
           <h2 className={styles.ctaTitle}>
-            Let's create something
+            Ready to grow
             <br />
-            <em>exceptional</em> together.
+            <em>your business?</em>
           </h2>
           <p className={styles.ctaLead}>
-            Have a project in mind?
-            <br />
-            Let's talk about how I can
-            <br />
-            bring your ideas to life.
+            Let&rsquo;s build a system that helps you attract more customers,
+            stay organized, and scale with confidence.
           </p>
           <a href="#contact" className={styles.btnPrimary}>
-            <span>DISCUSS A PROJECT</span>
+            <span>SCHEDULE A CONSULTATION</span>
             <IconArrow />
           </a>
         </div>
