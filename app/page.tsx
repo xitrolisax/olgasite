@@ -97,7 +97,7 @@ const faq = [
   },
   {
     q: 'How do you handle pricing?',
-    a: 'I work on a fixed-price project basis, scoped during Discovery. After our first call I send a written proposal with deliverables, timeline, and a transparent quote — no hourly billing surprises.',
+    a: 'I work on a fixed-price project basis, scoped during Discovery. After our first call I send a written proposal with deliverables, timeline, and a transparent quote.',
   },
   {
     q: 'Do you work on NDA projects?',
@@ -105,7 +105,7 @@ const faq = [
   },
   {
     q: 'Do you provide ongoing support after launch?',
-    a: 'Yes — every project includes 30 days of post-launch support at no extra cost. After that I offer monthly retainers for maintenance, content updates, and iterative improvements.',
+    a: 'Yes — I fix bugs found within 30 days of launch at no extra cost. Anything beyond that (new features, content updates, iterative improvements) is billed at $150/hour.',
   },
   {
     q: 'Do you work with international clients?',
