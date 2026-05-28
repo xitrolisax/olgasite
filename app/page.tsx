@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.scss';
 import { ContactTabs } from './contact-tabs';
+import { ImpactCalculator } from './impact-calculator';
 import {
   IconArrow,
   IconBag,
@@ -354,14 +355,28 @@ export default function Page() {
               St. Jude to fund lifesaving treatment and research so families
               never receive a bill for care, travel, housing, or food.
             </p>
-            <a
-              href="https://www.stjude.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.linkUnderline}
-            >
-              LEARN ABOUT ST. JUDE <IconArrow />
-            </a>
+
+            <ImpactCalculator />
+
+            <div className={styles.impactCtas}>
+              <a
+                href="http://fundraising.stjude.org/goto/syntria"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.btnDark}
+              >
+                <span>DONATE TO MY FUNDRAISER</span>
+                <IconArrow />
+              </a>
+              <a
+                href="https://www.stjude.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.linkUnderline}
+              >
+                LEARN ABOUT ST. JUDE <IconArrow />
+              </a>
+            </div>
           </div>
         </div>
       </section>

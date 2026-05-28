@@ -595,6 +595,7 @@ $gap: 80px;
 .impactCopy {
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 .impactTitle {
@@ -615,6 +616,120 @@ $gap: 80px;
   line-height: 1.65;
   color: #57544c;
   max-width: 720px;
+}
+
+.impactCalc {
+  margin: 26px 0;
+  padding: 22px 26px;
+  border: 1px solid #d8d2c4;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  max-width: 560px;
+}
+
+.impactCalcRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.impactCalcInputCol,
+.impactCalcResultCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.impactCalcLabel {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #6b685e;
+  font-weight: 500;
+}
+
+.impactCalcValue {
+  margin: 0;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #121110;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.impactCalcArrow {
+  align-self: center;
+  font-size: 22px;
+  color: #57544c;
+  flex-shrink: 0;
+  padding-bottom: 4px;
+}
+
+.impactCalcSlider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #121110 0%,
+    #121110 var(--fill, 0%),
+    #d8d2c4 var(--fill, 0%),
+    #d8d2c4 100%
+  );
+  outline: none;
+  cursor: pointer;
+  margin: 4px 0 10px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #121110;
+    border: 3px solid #efece6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+    transition: transform 0.15s;
+
+    &:active { cursor: grabbing; transform: scale(1.1); }
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #121110;
+    border: 3px solid #efece6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    cursor: grab;
+  }
+
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px rgba(18, 17, 16, 0.15);
+  }
+}
+
+.impactCalcScale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #8a8678;
+}
+
+.impactCtas {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 6px;
 }
 
 /* ---------- CONTACT ---------- */
@@ -1078,7 +1193,10 @@ $gap: 80px;
   .heroCopy { max-width: 100%; }
   .heroLead { font-size: 15px; margin-bottom: 36px; }
   .heroCtas { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 48px; }
-  .btnPrimary, .btnDark { width: 100%; max-width: 320px; justify-content: space-between; }
+  .heroCtas .btnPrimary { width: 100%; max-width: 320px; justify-content: space-between; }
+  .impactCtas { flex-direction: column; align-items: stretch; gap: 18px; }
+  .impactCtas .btnDark { width: 100%; justify-content: space-between; }
+  .impactCtas .linkUnderline { align-self: flex-start; }
 
   .headerInner { padding: 22px 28px 0; }
   .brand { font-size: 12px; }
@@ -1103,6 +1221,8 @@ $gap: 80px;
   .impactLead { font-size: 15px; }
   .impactLogoCard { width: 180px; }
   .impactLogo { max-height: 110px; }
+  .impactCalcRow { flex-direction: column; align-items: stretch; gap: 14px; }
+  .impactCalcArrow { transform: rotate(90deg); padding-bottom: 0; align-self: flex-start; }
   .faqHead .h2,
   .contactHead .h2 { font-size: 34px; }
   .quote { font-size: 24px; }
