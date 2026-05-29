@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Cormorant_Garamond } from 'next/font/google';
 import './globals.scss';
+import { PostHogProvider } from './providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -50,7 +51,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
-      <body>{children}</body>
+      <body>
+        <PostHogProvider>{children}</PostHogProvider>
+      </body>
     </html>
   );
 }
