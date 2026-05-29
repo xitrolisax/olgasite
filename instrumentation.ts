@@ -24,9 +24,8 @@ export function register() {
     resource: resourceFromAttributes({
       'service.name': 'olgasite',
     }),
+    processors: [new SimpleLogRecordProcessor(exporter)],
   });
-
-  loggerProvider.addLogRecordProcessor(new SimpleLogRecordProcessor(exporter));
 
   (globalThis as unknown as { __posthogLogger?: unknown }).__posthogLogger =
     loggerProvider.getLogger('olgasite');
