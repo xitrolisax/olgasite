@@ -11,11 +11,7 @@ const HOST = process.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 if (typeof window !== 'undefined' && KEY && !posthog.__loaded) {
   posthog.init(KEY, {
     api_host: HOST,
-    // Manual pageview tracking (App Router doesn't fire window 'load' on
-    // client navigation). pageleave + scroll depth handled by PostHog.
-    capture_pageview: false,
-    capture_pageleave: true,
-    persistence: 'localStorage+cookie',
+    defaults: '2026-01-30'
   });
 }
 
