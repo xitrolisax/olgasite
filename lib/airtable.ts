@@ -1,7 +1,8 @@
+import { logError, logInfo, logWarn } from './log';
+
 const TOKEN = process.env.AIRTABLE_API_KEY;
 const BASE_ID = process.env.AIRTABLE_BASE_ID;
 const TABLE = process.env.AIRTABLE_TABLE_NAME ?? 'Syntria CRM';
-const IS_PROD = process.env.NODE_ENV === 'production';
 
 type ClientInput = {
   name: string;
@@ -15,9 +16,7 @@ type ClientInput = {
 
 export async function createAirtableClient(input: ClientInput): Promise<void> {
   if (!TOKEN || !BASE_ID) {
-    console.warn(
-      '[airtable] Skipping — missing AIRTABLE_API_KEY or AIRTABLE_BASE_ID'
-    );
+    logWarn('[airtable] Skipping — missing AIRTABLE_API_KEY or AIRTABLE_BASE_ID');
     return;
   }
 
@@ -42,13 +41,11 @@ export async function createAirtableClient(input: ClientInput): Promise<void> {
     TABLE
   )}`;
 
-  if (!IS_PROD) {
-    console.log('[airtable] Inserting record:', {
-      table: TABLE,
-      source: input.source,
-      email: input.email,
-    });
-  }
+  logInfo('[airtable] Inserting record', {
+    table: TABLE,
+    source: input.source,
+    email: input.email,
+  });
 
   try {
     const res = await fetch(url, {
@@ -68,20 +65,19 @@ export async function createAirtableClient(input: ClientInput): Promise<void> {
     if (!res.ok) {
       // Loudly log full lead context so it can be reconstructed manually
       // if Airtable rejected the insert (wrong field name, bad token, etc).
-      console.error(
-        '[airtable] Insert failed:',
-        res.status,
-        responseText,
-        '— lost lead:',
-        JSON.stringify(input)
-      );
+      logError('[airtable] Insert failed', {
+        status: res.status,
+        response: responseText.slice(0, 500),
+        lostLead: JSON.stringify(input),
+      });
       return;
     }
 
-    if (!IS_PROD) {
-      console.log('[airtable] Insert OK:', responseText.slice(0, 200));
-    }
+    logInfo('[airtable] Insert OK', { source: input.source });
   } catch (e) {
-    console.error('[airtable] Insert error:', e, '— lost lead:', JSON.stringify(input));
+    logError('[airtable] Insert error', {
+      error: e instanceof Error ? e.message : String(e),
+      lostLead: JSON.stringify(input),
+    });
   }
 }

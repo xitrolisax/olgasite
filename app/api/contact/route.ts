@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { createAirtableClient } from '@/lib/airtable';
+import { logError, logInfo } from '@/lib/log';
 
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? 'olga@syntria.io';
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL;
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
   }
 
   if (!FROM_EMAIL && IS_PROD) {
-    console.error('[contact] CONTACT_FROM_EMAIL is not set in production');
+    logError('[contact] CONTACT_FROM_EMAIL is not set in production');
     return NextResponse.json(
       { error: 'Email service is not configured.' },
       { status: 500 }
@@ -83,12 +84,16 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error('[contact] Resend error:', error);
+      logError('[contact] Resend error', {
+        error: typeof error === 'object' ? JSON.stringify(error) : String(error),
+      });
       return NextResponse.json(
         { error: 'Could not send your message. Please try again.' },
         { status: 502 }
       );
     }
+
+    logInfo('[contact] Email sent', { to: TO_EMAIL, from: email });
 
     // Push lead into Airtable CRM. Await so the API route doesn't return
     // before the request completes (dangling promises get cancelled in
@@ -104,12 +109,16 @@ export async function POST(request: Request) {
         source: 'Contact form',
       });
     } catch (e) {
-      console.error('[contact] Airtable error:', e);
+      logError('[contact] Airtable error', {
+        error: e instanceof Error ? e.message : String(e),
+      });
     }
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error('[contact] Unexpected error:', e);
+    logError('[contact] Unexpected error', {
+      error: e instanceof Error ? e.message : String(e),
+    });
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }
