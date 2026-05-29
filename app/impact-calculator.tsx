@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import posthog from 'posthog-js';
 import styles from './page.module.scss';
 
 const fmt = new Intl.NumberFormat('en-US', {
@@ -43,9 +44,22 @@ export function ImpactCalculator() {
         step={STEP}
         value={budget}
         onChange={(e) => setBudget(Number(e.target.value))}
+        onMouseUp={() =>
+          posthog.capture('impact_calculator_used', {
+            budget,
+            donation,
+          })
+        }
+        onTouchEnd={() =>
+          posthog.capture('impact_calculator_used', {
+            budget,
+            donation,
+          })
+        }
         className={styles.impactCalcSlider}
         style={{ '--fill': `${percent}%` } as React.CSSProperties}
         aria-label="Project budget"
+        data-attr="impact-budget-slider"
       />
 
       <div className={styles.impactCalcScale}>

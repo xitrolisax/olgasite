@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import posthog from 'posthog-js';
 import styles from './page.module.scss';
 import { IconArrow } from './icons';
 
@@ -135,6 +136,10 @@ function MessageForm() {
       };
 
       if (!res.ok || !json.ok) {
+        posthog.capture('contact_form_failed', {
+          status: res.status,
+          error: json.error,
+        });
         setStatus({
           kind: 'error',
           message: json.error ?? 'Could not send your message. Please try again.',
@@ -142,6 +147,10 @@ function MessageForm() {
         return;
       }
 
+      posthog.capture('contact_form_submitted', {
+        projectType: String(payload.projectType ?? ''),
+        hasCompany: !!String(payload.company ?? '').trim(),
+      });
       setStatus({ kind: 'success' });
       form.reset();
     } catch {
@@ -200,6 +209,7 @@ function MessageForm() {
           placeholder="Your Name"
           aria-label="Your Name"
           disabled={submitting}
+          data-attr="contact-input-name"
         />
         <input
           type="email"
@@ -208,6 +218,7 @@ function MessageForm() {
           placeholder="Your Email"
           aria-label="Your Email"
           disabled={submitting}
+          data-attr="contact-input-email"
         />
       </div>
       <div className={styles.formRow}>
@@ -217,12 +228,14 @@ function MessageForm() {
           placeholder="Company (optional)"
           aria-label="Company"
           disabled={submitting}
+          data-attr="contact-input-company"
         />
         <select
           name="projectType"
           aria-label="Project Type"
           defaultValue=""
           disabled={submitting}
+          data-attr="contact-input-project-type"
         >
           <option value="" disabled>
             Project Type
@@ -239,6 +252,7 @@ function MessageForm() {
         placeholder="Tell me about your project"
         rows={5}
         disabled={submitting}
+        data-attr="contact-input-message"
       />
 
       {status.kind === 'error' && (
@@ -253,6 +267,7 @@ function MessageForm() {
           className={styles.btnDark}
           disabled={submitting}
           aria-busy={submitting}
+          data-attr="contact-submit"
         >
           <span>{submitting ? 'SENDING…' : 'SEND MESSAGE'}</span>
           {!submitting && <IconArrow />}
@@ -260,7 +275,9 @@ function MessageForm() {
         <p className={styles.formAside}>
           Or email me directly
           <br />
-          <a href="mailto:olga@syntria.io">olga@syntria.io</a>
+          <a href="mailto:olga@syntria.io" data-attr="contact-email-direct">
+            olga@syntria.io
+          </a>
         </p>
       </div>
     </form>
@@ -281,7 +298,11 @@ export function ContactTabs() {
           aria-controls="contact-panel-call"
           tabIndex={mode === 'call' ? 0 : -1}
           className={`${styles.contactTab} ${mode === 'call' ? styles.contactTabActive : ''}`}
-          onClick={() => setMode('call')}
+          onClick={() => {
+            setMode('call');
+            posthog.capture('contact_tab_clicked', { tab: 'call' });
+          }}
+          data-attr="contact-tab-call"
         >
           Book a call
         </button>
@@ -293,7 +314,11 @@ export function ContactTabs() {
           aria-controls="contact-panel-message"
           tabIndex={mode === 'message' ? 0 : -1}
           className={`${styles.contactTab} ${mode === 'message' ? styles.contactTabActive : ''}`}
-          onClick={() => setMode('message')}
+          onClick={() => {
+            setMode('message');
+            posthog.capture('contact_tab_clicked', { tab: 'message' });
+          }}
+          data-attr="contact-tab-message"
         >
           Send a message
         </button>

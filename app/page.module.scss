@@ -58,18 +58,28 @@ $gap: 80px;
 
 /* ---------- HEADER ---------- */
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 100;
   color: #ece8df;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease;
+}
+
+.headerScrolled {
+  background: rgba(10, 9, 7, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .headerInner {
   max-width: $container;
   margin: 0 auto;
-  padding: 36px 56px 0;
+  padding: 22px 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1232,7 +1242,7 @@ $gap: 80px;
   .timelineSteps { grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .timelineTrack { display: none; }
   .valueCards { grid-template-columns: 1fr 1fr; }
-  .headerInner { padding: 28px 40px 0; }
+  .headerInner { padding: 18px 40px; }
   .nav { gap: 26px; }
   .heroTitle { font-size: 60px; }
   .h2 { font-size: 40px; }
@@ -1277,9 +1287,9 @@ $gap: 80px;
   .impactCtas .btnDark { width: 100%; justify-content: space-between; }
   .impactCtas .linkUnderline { align-self: flex-start; }
 
-  .headerInner { padding: 22px 28px 0; }
+  .headerInner { padding: 16px 28px; }
   .brand { font-size: 12px; }
-  .nav { display: none; }
+  .nav { gap: 16px; font-size: 10.5px; letter-spacing: 0.18em; }
 
   .services,
   .servicesGridSection,
@@ -1345,7 +1355,20 @@ $gap: 80px;
   .faqSection,
   .contactSection,
   .footer { padding-left: 22px; padding-right: 22px; }
-  .headerInner { padding: 20px 22px 0; }
+  .headerInner {
+    padding: 14px 10px;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+  .brand { gap: 0; font-size: 11px; letter-spacing: 0.18em; }
+  .brandName { display: none; }
+  .nav {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
 
   .h2 { font-size: 30px; }
   .ctaTitle { font-size: 30px; }

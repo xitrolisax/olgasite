@@ -11,10 +11,10 @@ const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 if (typeof window !== 'undefined' && KEY && !posthog.__loaded) {
   posthog.init(KEY, {
     api_host: HOST,
-    // Manual pageview tracking — App Router SPA navigation doesn't fire load events.
-    // pageleave + scroll depth handled automatically by PostHog.
-    capture_pageview: false,
-    capture_pageleave: true,
+    capture_pageview: false,    // manual via PageViewTracker
+    capture_pageleave: true,    // pageleave + scroll depth
+    autocapture: true,          // capture clicks/inputs by data-attr
+    capture_performance: true,  // web vitals
     persistence: 'localStorage+cookie',
   });
 }

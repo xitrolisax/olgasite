@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from './page.module.scss';
 import { ContactTabs } from './contact-tabs';
 import { ImpactCalculator } from './impact-calculator';
+import { Header } from './header';
 import {
   IconArrow,
   IconBag,
@@ -138,20 +139,7 @@ const faq = [
 export default function Page() {
   return (
     <main>
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <a href="#top" className={styles.brand}>
-            <span className={styles.brandName}>OLGA FREDRICK</span>
-            <span className={styles.brandDot}>•</span>
-          </a>
-          <nav className={styles.nav}>
-            <a href="#services">SERVICES</a>
-            <a href="#experience">EXPERIENCE</a>
-            <a href="#about">ABOUT</a> 
-            <a href="#contact">CONTACT</a>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* HERO */}
       <section className={styles.hero} id="top">
@@ -183,11 +171,19 @@ export default function Page() {
               to generate leads, stay organized, and scale faster.
             </p>
             <div className={styles.heroCtas}>
-              <a href="#contact" className={styles.btnPrimary}>
+              <a
+                href="#contact"
+                className={styles.btnPrimary}
+                data-attr="hero-discuss-project"
+              >
                 <span>DISCUSS A PROJECT</span>
                 <IconArrow />
               </a>
-              <a href="#services" className={styles.btnGhost}>
+              <a
+                href="#services"
+                className={styles.btnGhost}
+                data-attr="hero-view-services"
+              >
                 VIEW SERVICES
               </a>
             </div>
@@ -407,6 +403,7 @@ export default function Page() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.btnDark}
+                data-attr="impact-donate-fundraiser"
               >
                 <span>DONATE TO MY FUNDRAISER</span>
                 <IconArrow />
@@ -416,6 +413,7 @@ export default function Page() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.linkUnderline}
+                data-attr="impact-learn-stjude"
               >
                 LEARN ABOUT ST. JUDE <IconArrow />
               </a>
@@ -451,7 +449,11 @@ export default function Page() {
             Let&rsquo;s build a system that helps you attract more customers,
             stay organized, and scale with confidence.
           </p>
-          <a href="#contact" className={styles.btnPrimary}>
+          <a
+            href="#contact"
+            className={styles.btnPrimary}
+            data-attr="cta-banner-schedule"
+          >
             <span>SCHEDULE A CONSULTATION</span>
             <IconArrow />
           </a>
@@ -472,7 +474,11 @@ export default function Page() {
               Based in the United States<span className={styles.brandDot}>•</span>Working Worldwide
             </p>
             <div className={styles.socials}>
-              <a aria-label="Email" href="mailto:olga@syntria.io">
+              <a
+                aria-label="Email"
+                href="mailto:olga@syntria.io"
+                data-attr="footer-email"
+              >
                 <IconMail />
               </a>
             </div>
@@ -480,10 +486,10 @@ export default function Page() {
 
           <div className={styles.footerCol}>
             <h5>NAVIGATION</h5>
-            <a href="#services">SERVICES</a>
-            <a href="#experience">EXPERIENCE</a>
-            <a href="#about">ABOUT</a>
-            <a href="#contact">CONTACT</a>
+            <a href="#services" data-attr="footer-nav-services">SERVICES</a>
+            <a href="#experience" data-attr="footer-nav-experience">EXPERIENCE</a>
+            <a href="#about" data-attr="footer-nav-about">ABOUT</a>
+            <a href="#contact" data-attr="footer-nav-contact">CONTACT</a>
           </div>
 
          
