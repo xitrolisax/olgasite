@@ -8,7 +8,7 @@ import { PostHogProvider as Provider, usePostHog } from 'posthog-js/react';
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_LOGS_TOKEN;
 const HOST = process.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 
-if (typeof window !== 'undefined' && KEY && !posthog.__loaded) {
+if ( KEY && !posthog.__loaded) {
   posthog.init(KEY, {
     api_host: HOST,
     defaults: '2026-01-30'
