@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import posthog from 'posthog-js';
 import { PostHogProvider as Provider, usePostHog } from 'posthog-js/react';
 
-const KEY = process.env.POSTHOG_LOGS_TOKEN;
+const KEY = process.env.NEXT_PUBLIC_POSTHOG_LOGS_TOKEN;
 const HOST = process.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 
 if (typeof window !== 'undefined' && KEY && !posthog.__loaded) {

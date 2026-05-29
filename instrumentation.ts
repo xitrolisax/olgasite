@@ -5,10 +5,10 @@ import { LoggerProvider, SimpleLogRecordProcessor } from '@opentelemetry/sdk-log
 export function register() {
   if (process.env.NEXT_RUNTIME !== 'nodejs') return;
 
-  const token = process.env.POSTHOG_LOGS_TOKEN;
+  const token = process.env.NEXT_PUBLIC_POSTHOG_LOGS_TOKEN;
   if (!token) {
     console.warn(
-      '[instrumentation] POSTHOG_LOGS_TOKEN not set — skipping log shipping'
+      '[instrumentation] NEXT_PUBLIC_POSTHOG_LOGS_TOKEN not set — skipping log shipping'
     );
     return;
   }
