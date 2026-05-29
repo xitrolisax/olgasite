@@ -5,13 +5,17 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import posthog from 'posthog-js';
 import { PostHogProvider as Provider, usePostHog } from 'posthog-js/react';
 
-const KEY = process.env.NEXT_PUBLIC_POSTHOG_LOGS_TOKEN;
-const HOST = process.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
+const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
 
-if ( KEY && !posthog.__loaded) {
+if (typeof window !== 'undefined' && KEY && !posthog.__loaded) {
   posthog.init(KEY, {
     api_host: HOST,
-    defaults: '2026-01-30'
+    // Manual pageview tracking — App Router SPA navigation doesn't fire load events.
+    // pageleave + scroll depth handled automatically by PostHog.
+    capture_pageview: false,
+    capture_pageleave: true,
+    persistence: 'localStorage+cookie',
   });
 }
 
